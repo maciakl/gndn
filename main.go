@@ -67,7 +67,7 @@ func Run() {
 	generate_spinner("Initializing")
 
 	//test
-	//generate_checklist()
+	generate_batch_operation_spam()
 
 	for {
 		do_work(" " + get_random_verb() + " " + get_random_noun() + ":")
@@ -231,14 +231,37 @@ func get_random_statement() string {
 		"Moving on to the next job...",
 		"Moving forward...",
 		"Continuing...",
-		"Working...",
-		"Waiting...",
+		"Advancing to next working set...",
+		"Moving to next stage...",
+		"Moving to next step...",
+		"Moving to next phase...",
+		"Moving to next level...",
+		"Next stage...",
+		"Next step...",
+		"Next phase...",
+		"Next level...",
+		"Backing up to prwious stage...",
+		"Rolling back to previous stage...",
+		"Rolling forward to next stage...",
+		"Reconfiguring for next stage...",
 		"Staging...",
+		"Staging next batch...",
+		"Staging next group...",
+		"Staging next set...",
+		"Substaging...",
 		"Unstaging...", 
 		"Restoring...",
+		"Reverting...",
+		"Updating...",
 		"Setting up...",
 		"Cleaning up...",
 		"Finalizing...",
+		"Optimizing...",
+		"Optimized configuration.",
+		"Reloading configuration...",
+		"Verified configuration.",
+		"Stabilizing...",
+		"Stabilized the configuration.",
 		"Reinitializing...",
 		"Rolling back...",
 		"Rolling forward...",
@@ -470,7 +493,7 @@ func generate_bar_graph() {
 	
 	stage := get_random_number()
 	fmt.Println()
-	fmt.Println("Generating bar graph for case", stage)
+	fmt.Println("Generating report for staging batch", stage)
 	fmt.Println()
 
 	// generate 4-6 bars
@@ -514,12 +537,12 @@ func generate_bar_graph() {
 
 func generate_checklist() {
 	
-	stage := get_random_number()
-	fmt.Println()
-	fmt.Println("Generating staging checklist for set", stage)
-	fmt.Println()
-
+	group := get_random_number()
 	num_items := 5 + rand.IntN(5)
+
+	fmt.Println()
+	fmt.Println("Generating staging checklist for stages 1 -", num_items, "in group", group)
+	fmt.Println()
 
 	for i := range(num_items) {
 		quick_spin(fmt.Sprintf("Stage %d:", i+1), get_quick_status())
@@ -576,6 +599,8 @@ func get_random_rare_message_generator() func() {
 		generate_grid,
 		generate_bar_graph,
 		generate_checklist,
+		generate_report,
+		generate_batch_operation_spam,
 	}
 	return generators[rand.IntN(len(generators))]
 }
@@ -649,4 +674,232 @@ func get_quick_status() string {
 	}
 
 	return status
+}
+
+func get_random_percentage() string {
+	percent := rand.IntN(100)
+	pctstr := fmt.Sprintf("%d%%", percent)
+
+	if percent < 30 {
+		return color.RedString(pctstr)
+	} else if percent >= 30 && percent < 50 {
+		return color.YellowString(pctstr)
+	} else if percent >= 50 && percent < 80 {
+		return pctstr
+	} else {
+		return color.GreenString(pctstr)
+	}
+}
+
+func generate_report() {
+
+	groups := 1 + rand.IntN(8)
+	stage := get_random_number()
+
+	fmt.Println()
+	fmt.Println("Generating completion report for groups 1 -", groups, "in stage", stage)
+	fmt.Println()
+
+	for group := range(groups) {
+		gr := fmt.Sprintf("Group %d", group+1)
+		quick_spin(gr + ":", get_random_percentage())
+	}
+	
+	fmt.Println()
+	fmt.Println("Done")
+	fmt.Println()
+
+}
+
+func get_random_batch_operation() string {
+	
+	operations := []string{
+		"Backing up database",
+		"Restoring database",
+		"Optimizing database",
+		"Indexing database",
+		"Reindexing database",
+		"Rebuilding database",
+		"Setting up database",
+		"Cleaning up database",
+		"Finalizing database",
+		"Rebuilding index",
+		"Optimizing index",
+		"Deleting index",
+		"Reconfiguring index",
+		"Setting up index",
+		"Cleaning up index",
+		"Finalizing index",
+		"Flushing cache",
+		"Clearing cache",
+		"Rebuilding cache",
+		"Reinitializing cache",
+		"Reconfiguring cache",
+		"Resetting cache",
+		"Optimizing cache",
+		"Reindexing cache",
+		"Backing up cache",
+		"Restoring cache",
+		"Deleting cache",
+		"Backing up log file",
+		"Restoring log file",
+		"Deleting log file",
+		"Optimizing log file",
+		"Indexing log file",
+		"Rebuilding log file",
+		"Optimizing log file",
+		"Reindexing log file",
+		"Setting up log file",
+		"Cleaning up log file",
+		"Finalizing log file",
+		"Backing up dataset",
+		"Restoring dataset",
+		"Optimizing dataset",
+		"Indexing dataset",
+		"Rebuilding dataset",
+		"Optimizing dataset",
+		"Reindexing dataset",
+		"Setting up dataset",
+		"Cleaning up dataset",
+		"Finalizing dataset",
+		"Backing up library",
+		"Restoring library",
+		"Optimizing library",
+		"Indexing library",
+		"Rebuilding library",
+		"Optimizing library",
+		"Reindexing library",
+		"Setting up library",
+		"Cleaning up library",
+		"Finalizing library",
+		"Setting up environment",
+		"Cleaning up environment",
+		"Finalizing environment",
+		"Optimizing environment",
+		"Reconfiguring environment",
+		"Resetting environment",
+		"Reinitializing environment",
+		"Reconfiguring environment",
+		"Rolling back environment",
+		"Setting up configuration",
+		"Cleaning up configuration",
+		"Finalizing configuration",
+		"Optimizing configuration",
+		"Reconfiguring configuration",
+		"Resetting configuration",
+		"Reinitializing configuration",
+		"Reconfiguring configuration",
+		"Rolling back configuration",
+		"Setting up test",
+		"Cleaning up test",
+		"Finalizing test",
+		"Optimizing test",
+		"Reconfiguring test",
+		"Resetting test",
+		"Running test",
+		"Reinitializing test",
+		"Reconfiguring test",
+		"Rolling back test",
+		"Setting up stage",
+		"Cleaning up stage",
+		"Finalizing stage",
+		"Optimizing stage",
+		"Reconfiguring stage",
+		"Resetting stage",
+		"Reinitializing stage",
+		"Reconfiguring stage",
+		"Rolling back stage",
+		"Setting up batch",
+		"Cleaning up batch",
+		"Finalizing batch",
+		"Optimizing batch",
+		"Reconfiguring batch",
+		"Resetting batch",
+		"Reinitializing batch",
+		"Reconfiguring batch",
+		"Rolling back batch",
+		"Setting up job",
+		"Cleaning up job",
+		"Finalizing job",
+		"Optimizing job",
+		"Reconfiguring job",
+		"Resetting job",
+		"Reinitializing job",
+		"Reconfiguring job",
+		"Rolling back job",
+		"Setting up process",
+		"Cleaning up process",
+		"Finalizing process",
+		"Optimizing process",
+		"Reconfiguring process",
+		"Resetting process",
+		"Reinitializing process",
+		"Reconfiguring process",
+		"Rolling back process",
+		"Setting up operation",
+		"Cleaning up operation",
+		"Finalizing operation",
+		"Optimizing operation",
+		"Reconfiguring operation",
+		"Resetting operation",
+		"Reinitializing operation",
+		"Reconfiguring operation",
+		"Rolling back operation",
+		"Setting up task",
+		"Cleaning up task",
+		"Finalizing task",
+		"Optimizing task",
+		"Reconfiguring task",
+		"Resetting task",
+		"Reinitializing task",
+		"Reconfiguring task",
+		"Rolling back task",
+		"Setting up thread",
+		"Cleaning up thread",
+		"Finalizing thread",
+		"Optimizing thread",
+		"Reconfiguring thread",
+		"Resetting thread",
+		"Reinitializing thread",
+		"Reconfiguring thread",
+		"Rolling back thread",
+		"Setting up request",
+		"Cleaning up request",
+		"Finalizing request",
+		"Optimizing request",
+		"Reconfiguring request",
+		"Resetting request",
+		"Reinitializing request",
+		"Reconfiguring request",
+		"Rolling back request",
+		"Setting up response",
+		"Cleaning up response",
+		"Finalizing response",
+		"Optimizing response",
+		"Reconfiguring response",
+		"Resetting response",
+		"Reinitializing response",
+		"Reconfiguring response",
+		"Rolling back response",
+	}
+
+	return operations[rand.IntN(len(operations))]
+}
+
+func generate_batch_operation_spam() {
+
+	batch := get_random_number()
+
+	fmt.Println()
+	fmt.Println("Initiating operations for batch", batch)
+	fmt.Println()
+
+	number := 15 + rand.IntN(150)
+
+	for range(number) {
+		sleep := 50 + time.Duration(rand.IntN(800)) * time.Millisecond
+		op := get_random_number()
+		fmt.Println("   ", get_random_batch_operation(), op)
+		time.Sleep(sleep)
+	}
 }

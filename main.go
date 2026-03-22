@@ -67,7 +67,7 @@ func Run() {
 	generate_spinner("Initializing")
 
 	//test
-	generate_batch_operation_spam()
+	// generate_batch_operation_spam()
 
 	for {
 		do_work(" " + get_random_verb() + " " + get_random_noun() + ":")
@@ -394,6 +394,12 @@ func get_random_file_operation() string {
 		"Moving",
 		"Copying",
 		"Creating",
+		"Compressing",
+		"Encrypting",
+		"Decrypting",
+		"Inflating",
+		"Deflating",
+		"Archiving",
 	}
 
 	return operations[rand.IntN(len(operations))] + " " + get_random_filename()
@@ -408,7 +414,7 @@ func generate_file_operation_spam() {
 	fmt.Println("Initiating file operations for batch", batch)
 	fmt.Println()
 
-	number := 3 + rand.IntN(50)
+	number := 3 + rand.IntN(70)
 	sleep := 50 + time.Duration(rand.IntN(500)) * time.Millisecond
 	
 	for range(number) {
@@ -902,4 +908,8 @@ func generate_batch_operation_spam() {
 		fmt.Println("   ", get_random_batch_operation(), op)
 		time.Sleep(sleep)
 	}
+
+	fmt.Println()
+	fmt.Println("Done")
+	fmt.Println()
 }

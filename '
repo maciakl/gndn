@@ -67,7 +67,7 @@ func Run() {
 	generate_spinner("Initializing")
 
 	// FIRST
-	//generate_batch_report()
+	generate_batch_report()
 
 	for {
 		do_work(" " + get_random_verb() + " " + get_random_noun() + ":")
@@ -595,7 +595,6 @@ func get_random_rare_message_generator() func() {
 		generate_report,
 		generate_batch_operation_spam,
 		generate_network_diagnostics,
-		generate_batch_report,
 	}
 	return generators[rand.IntN(len(generators))]
 }
@@ -905,9 +904,8 @@ func generate_batch_operation_spam() {
 
 func generate_network_diagnostics() {
 
-	nic := rand.IntN(9)
 	fmt.Println()
-	fmt.Printf("Running network diagnostics for eth%d...\n", nic)
+	fmt.Println("Running network diagnostics...")
 	fmt.Println()
 	
 	fmt.Printf("   %15s%12s\n", "Download:", fmt.Sprintf("%dMbps", 100+rand.IntN(899)))
@@ -928,52 +926,11 @@ func generate_batch_report() {
 	
 	batch := get_random_number()
 	fmt.Println()
-	fmt.Println("Generating batch report for cluster", batch)
-	fmt.Println()
-
-	processed := 100 + rand.IntN(899)
-	indexed := processed/(1+rand.IntN(2))
-	encrypted := indexed/2
-	uploaded := encrypted/2
-
-
-	fmt.Printf("   %19s%13s\n", "Data Processed:", fmt.Sprintf("%dMb", processed))
-	fmt.Printf("   %19s%13s\n", "Data Indexed:", fmt.Sprintf("%dMb", indexed))
-	fmt.Printf("   %19s%13s\n", "Data Encrypted:", fmt.Sprintf("%dMb", encrypted))
-	fmt.Printf("   %19s%13s\n", "Data Uploaded:", fmt.Sprintf("%dMb", uploaded))
-	fmt.Println()
-
-	files := rand.IntN(199)
-	bad := files/5
-	indexing := files-bad/2
-
-	fmt.Printf("   %19s%13s\n", "Files Processed:", fmt.Sprintf("%d", files))
-	fmt.Printf("   %19s%13s\n", "Files Indexed:", fmt.Sprintf("%d", indexing))
-	fmt.Printf("   %19s%13s\n", "Bad Files:", fmt.Sprintf("%d", bad))
-	fmt.Println()
-	
-	conc := rand.IntN(15)
-	halted := conc/3
-	running := conc-halted
-
-	fmt.Printf("   %19s%13s\n", "Concurrent Jobs:", fmt.Sprintf("%d", conc))
-	fmt.Printf("   %19s%13s\n", "Running Jobs:", fmt.Sprintf("%d", running))
-	fmt.Printf("   %19s%13s\n", "Halted Jobs:", fmt.Sprintf("%d", halted))
-	fmt.Println()
-
-	tm := rand.IntN(99)
-	mn := tm/9
-	mx := tm*3
-
-	fmt.Printf("   %19s%13s\n", "Avg. Time per File:", fmt.Sprintf("%dms", tm))
-	fmt.Printf("   %19s%13s\n", "Fastest Time:", fmt.Sprintf("%dms", mn))
-	fmt.Printf("   %19s%13s\n", "Slowest Time:", fmt.Sprintf("%dms", mx))
+	fmt.Println("Generating batch report for batch", batch)
 	fmt.Println()
 
 
-	fmt.Printf("   %19s%13s\n", "Data Lost:", fmt.Sprintf("%dKb", rand.IntN(299)))
-	fmt.Printf("   %19s%13s\n", "Error Rate:", fmt.Sprintf("%d%%", rand.IntN(10)))
-
+	fmt.Printf("   %15s%12s\n", "Data Processed:", fmt.Sprintf("%dMb", 100+rand.IntN(899)))
 
 
 	fmt.Println()

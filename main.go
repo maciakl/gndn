@@ -183,19 +183,6 @@ func get_random_status() string {
 	return statuses[rand.IntN(len(statuses))]
 }
 
-func get_random_emoji() string {
-	
-	emojis := []string{
-		color.GreenString("✅"),
-		color.GreenString("✅"),
-		color.GreenString("✅"),
-		color.GreenString("✅"),
-		color.RedString("❌"),
-		color.YellowString("⚠️"),
-	}
-	return emojis[rand.IntN(len(emojis))]
-}
-
 func get_random_check() string {
 
 	checks := []string{

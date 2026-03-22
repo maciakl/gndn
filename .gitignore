@@ -1,0 +1,9 @@
+.env
+gndn
+gndn*.exe
+gndn.zip
+gndn.tgz
+gndn_*.zip
+gndn_*.tgz
+# Added by goreleaser init:
+dist/

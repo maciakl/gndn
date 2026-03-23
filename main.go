@@ -67,7 +67,6 @@ func Run() {
 	generate_spinner("Initializing")
 
 	// FIRST
-	generate_server_report()
 
 
 	for {

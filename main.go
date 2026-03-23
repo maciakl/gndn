@@ -210,7 +210,7 @@ func get_random_status_check() string {
 
 func generate_status_check() {
 	
-	check := get_random_check() + ": "
+	check := get_random_check()
 	result := get_random_status()
 	fmt.Println()
 	quick_spin(check, result)

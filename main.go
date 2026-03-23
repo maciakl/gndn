@@ -599,10 +599,26 @@ func generate_checklist() {
 	fmt.Println("Generating staging checklist for stages 1 -", num_items, "in group", group)
 	fmt.Println()
 
+	done := 0
+	halted := 0
+	failed := 0
+
+
 	for i := range(num_items) {
-		quick_spin(fmt.Sprintf("Stage %d:", i+1), get_quick_status())
+		status := get_quick_status()
+		if status == color.GreenString("Done") {
+			done++
+		} else if status == color.YellowString("Halted") {
+			halted++
+		} else {
+			failed++
+		}
+
+		quick_spin(fmt.Sprintf("Stage %d:", i+1), status)
 	}
 
+	fmt.Println()
+	fmt.Printf("%d done, %d halted, %d failed\n", done, halted, failed)
 	fmt.Println()
 	fmt.Println("Done")
 	fmt.Println()
@@ -1070,6 +1086,9 @@ func generate_network_diagnostics() {
 	fmt.Println()
 	fmt.Printf("Running network diagnostics for eth%d...\n", nic)
 	fmt.Println()
+
+	spin("Running network diagnostic...", "", 9, "white", 7)
+	spin("Generating report...", "", 9, "white", 3)
 	
 	fmt.Printf("   %15s%12s\n", "Download:", fmt.Sprintf("%dMbps", 100+rand.IntN(899)))
 	fmt.Printf("   %15s%12s\n", "Upload:", fmt.Sprintf("%dMbps", 10+rand.IntN(90)))
@@ -1091,6 +1110,8 @@ func generate_batch_report() {
 	fmt.Println()
 	fmt.Println("Generating batch report for cluster", batch)
 	fmt.Println()
+
+	spin("Generating...", "", 9, "white", 7)
 
 	processed := 100 + rand.IntN(899)
 	indexed := processed/(1+rand.IntN(2))

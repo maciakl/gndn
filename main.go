@@ -67,7 +67,8 @@ func Run() {
 	generate_spinner("Initializing")
 
 	// FIRST
-	//generate_batch_report()
+	generate_server_report()
+
 
 	for {
 		do_work(" " + get_random_verb() + " " + get_random_noun() + ":")
@@ -192,7 +193,7 @@ func get_random_check() string {
 		"Consistency Check:",
 		"Dependency Check:",
 		"Cache Validation Check",
-		"System Check",
+		"System Check:",
 		"Resource Check:",
 		"Security Check:",
 		"Performance Check:",
@@ -206,6 +207,15 @@ func get_random_status_check() string {
 
 	return get_random_check() + " " + get_random_status()
 	
+}
+
+func generate_status_check() {
+	
+	check := get_random_check() + ": "
+	result := get_random_status()
+	fmt.Println()
+	quick_spin(check, result)
+	fmt.Println()
 }
 
 func get_random_statement() string {
@@ -223,11 +233,10 @@ func get_random_statement() string {
 		"Moving to next step...",
 		"Moving to next phase...",
 		"Moving to next level...",
-		"Next stage...",
-		"Next step...",
+		"Advancing to next step...",
 		"Next phase...",
-		"Next level...",
-		"Backing up to prwious stage...",
+		"Advancing to Next cluster...",
+		"Backing up to previous stage...",
 		"Rolling back to previous stage...",
 		"Rolling forward to next stage...",
 		"Reconfiguring for next stage...",
@@ -237,6 +246,7 @@ func get_random_statement() string {
 		"Staging next set...",
 		"Substaging...",
 		"Unstaging...", 
+		"Restaging...",
 		"Restoring...",
 		"Reverting...",
 		"Updating...",
@@ -244,11 +254,11 @@ func get_random_statement() string {
 		"Cleaning up...",
 		"Finalizing...",
 		"Optimizing...",
-		"Optimized configuration.",
+		"Optimizing configuration...",
 		"Reloading configuration...",
-		"Verified configuration.",
+		"Verifying configuration...",
 		"Stabilizing...",
-		"Stabilized the configuration.",
+		"Stabilizing the configuration...",
 		"Reinitializing...",
 		"Rolling back...",
 		"Rolling forward...",
@@ -275,20 +285,43 @@ func get_random_statement() string {
 	return statements[rand.IntN(len(statements))]
 }
 
+
+func generate_random_statement() {
+	msg := get_random_statement()
+	fmt.Println()
+	spin(
+		msg,
+		msg+" Done",
+		9,
+		"white",
+		1,
+	)
+}
+
 func get_random_error() string {
 	
 	errors := []string{
-		color.RedString("Error: Unable to connect to database"),
-		color.RedString("Error: File not found"),
-		color.RedString("Error: Access denied"),
-		color.RedString("Error: Out of memory"),
-		color.RedString("Error: Invalid input"),
-		color.RedString("Error: Timeout occurred"),
-		color.RedString("Error: Network unreachable"),
-		color.RedString("Error: Permission denied"),
-		color.RedString("Error: Disk full"),
+		"Unable to connect to database",
+		"File not found",
+		"Access denied",
+		"Out of memory",
+		"Invalid configuration",
+		"Null pointer exception",
+		"Segmentation fault",
+		"Index out of range",
+		"Stack overflow",
+		"Invalid input",
+		"Timeout occurred",
+		"Network unreachable",
+		"Permission denied",
+		"Disk full",
 	}
-	return errors[rand.IntN(len(errors))]
+
+	code := get_random_number()
+	message := color.RedString(
+		fmt.Sprintf("Error %s: %s", code, errors[rand.IntN(len(errors))]))
+
+	return message
 }
 
 func get_random_warning() string {
@@ -324,6 +357,29 @@ func get_random_info() string {
 	return infos[rand.IntN(len(infos))]
 }
 
+func generate_random_info() {
+	msg := get_random_info()
+	fmt.Println()
+	fmt.Println(msg)
+	time.Sleep(1 * time.Second)
+	spin(
+		color.CyanString("Modifying the environment..."),
+		color.CyanString("Changes written to " + get_random_string() + ".env"),
+		11,
+		"cyan",
+		3,
+	)
+	time.Sleep(1 * time.Second)
+	spin(
+		color.CyanString("Resetting..."),
+		color.CyanString("Reset successful!"),
+		11,
+		"cyan",
+		4,
+	)
+	fmt.Println()
+}
+
 
 func get_random_string() string {
 
@@ -355,7 +411,10 @@ func get_random_filename() string {
 		".toml",
 		".env",
 		".conf",
-		".py",
+		".tar",
+		".tar.gz",
+		".zip",
+		".rar",
 		".ini",
 		".lib",
 		".db",
@@ -446,6 +505,8 @@ func generate_grid() {
 	fmt.Println("Generating grid for stage", stage)
 	fmt.Println()
 
+	spin("Generating...", "", 9, "white", 7)
+
 	// generate 10x10 grid of random symbols with borders
 
 	for i := range(10) {
@@ -478,7 +539,7 @@ func generate_grid() {
 func get_random_number() string {
 
 	// generate random 3 digit number
-	num := 100 + rand.IntN(999)
+	num := 100 + rand.IntN(899)
 	return fmt.Sprintf("%d", num)
 }
 
@@ -488,6 +549,8 @@ func generate_bar_graph() {
 	fmt.Println()
 	fmt.Println("Generating report for staging batch", stage)
 	fmt.Println()
+
+	spin("Generating...", "", 9, "white", 7)
 
 	// generate 4-6 bars
 	// each bar has random height between 1 and 50
@@ -566,20 +629,87 @@ func generate_random_messages() {
 
 }
 
+func get_random_logfile() string {
+
+	return fmt.Sprintf("/var/log/%s.log", get_random_string())
+}
+
+func get_random_server() string {
+
+	chance := rand.IntN(100)
+
+	var name string
+
+	types := []string {
+		"dt",
+		"pr",
+		"er",
+		"xt",
+		"zs",
+	}
+	
+	if chance < 75 {
+		name = fmt.Sprintf("gn%s-0%s.local", types[rand.IntN(len(types))],get_random_number())
+	} else {
+		name = fmt.Sprintf("10.%d.%d.%d", rand.IntN(9), rand.IntN(99), rand.IntN(99))
+	}
+	
+	return name
+}
+
+func generate_random_error() {
+	err := get_random_error()
+	fmt.Println()
+	fmt.Println(err)
+	fmt.Print("\a")
+	time.Sleep(1 * time.Second)
+	spin(
+		color.RedString("Generating error log..."),
+		color.RedString("Log generated in " + get_random_logfile()),
+		11,
+		"red",
+		3,
+	)
+	spin(
+		color.RedString("Sending notification..."),
+		color.RedString("Notification sent to admin@"+get_random_server()),
+		9,
+		"red",
+		4,
+	)
+	fmt.Println()
+}
+
+func generate_random_warning() {
+	err := get_random_warning()
+	fmt.Println()
+	fmt.Println(err)
+	fmt.Print("\a")
+	time.Sleep(1 * time.Second)
+	spin(
+		color.YellowString("Generating error log..."),
+		color.YellowString("Log generated in " + get_random_logfile()),
+		11,
+		"yellow",
+		3,
+	)
+	fmt.Println()
+}
+
 func generate_common_message_() {
 
 	chance := rand.IntN(100)
 
 	if chance < 40 {
-		fmt.Println(get_random_statement())
+		generate_random_statement()
 	} else if chance >= 40 && chance < 60 {
-		fmt.Println(get_random_status_check())
+		generate_status_check()
 	} else if chance >= 60 && chance < 70 {
-		fmt.Println(get_random_error())
+		generate_random_error()
 	} else if chance >= 70 && chance < 80 {
-		fmt.Println(get_random_warning())
+		generate_random_warning()
 	} else if chance >= 80 && chance < 90 {
-		fmt.Println(get_random_info())
+		generate_random_info()
 	} else {
 		generate_spinner("")
 	}
@@ -596,6 +726,7 @@ func get_random_rare_message_generator() func() {
 		generate_batch_operation_spam,
 		generate_network_diagnostics,
 		generate_batch_report,
+		generate_file_downloader,
 	}
 	return generators[rand.IntN(len(generators))]
 }
@@ -611,9 +742,12 @@ func generate_spinner(message string) {
 	}
 
 	charsets := []int {
+		1,
+		7,
 		9,
 		11,
 		35,
+		41,
 	}
 
 	charset := charsets[rand.IntN(len(charsets))]
@@ -640,6 +774,16 @@ func generate_spinner(message string) {
 	s.Stop()
 }
 
+func spin(message string, result string, charset int, color string, duration int) {
+	s := spinner.New(spinner.CharSets[charset], 100*time.Millisecond) 
+	s.Prefix = message + " "
+	s.FinalMSG = result + "\n"
+	s.Start()
+	s.Color(color)
+	time.Sleep(time.Duration(duration) * time.Second)
+	s.Stop()
+}
+
 func quick_spin(message string, result string) {
 
 	s := spinner.New(spinner.CharSets[11], 100*time.Millisecond) 
@@ -650,6 +794,24 @@ func quick_spin(message string, result string) {
 	s.Color("cyan")
 
 	duration := 1 + rand.IntN(3)
+	time.Sleep(time.Duration(duration) * time.Second)
+	s.Stop()
+}
+
+func quick_download() {
+
+	file := get_random_filename()
+	message := color.CyanString(fmt.Sprintf("Downloading %s", file))
+	result := fmt.Sprintf("Downloaded %s", file)
+
+	s := spinner.New(spinner.CharSets[35], 100*time.Millisecond) 
+	s.Prefix = message + " "
+	s.FinalMSG = result + "\n"
+	s.Start()
+
+	s.Color("cyan")
+
+	duration := 1 + rand.IntN(2)
 	time.Sleep(time.Duration(duration) * time.Second)
 	s.Stop()
 }
@@ -976,6 +1138,70 @@ func generate_batch_report() {
 
 
 
+	fmt.Println()
+	fmt.Println("Done")
+	fmt.Println()
+}
+
+func generate_file_downloader() {
+
+	batch := get_random_number()
+	fmt.Println()
+	fmt.Println("Downloading files for batch", batch)
+	fmt.Println()
+
+	files := 10 + rand.IntN(20)
+
+	for range(files) {
+		quick_download()
+	}
+
+	fmt.Println()
+	fmt.Println("Done")
+	fmt.Println()
+}
+
+func generate_server_report() {
+	
+	cluster := get_random_number()
+	fmt.Println()
+	fmt.Printf("Generating server availability report for cluster %s...\n", cluster)
+	fmt.Println()
+
+	number := 5 + rand.IntN(10)
+
+	online := 0
+	degraded := 0
+	offline := 0
+
+	for range(number) {
+		server := get_random_server()
+
+		chance := rand.IntN(100)
+		
+		if chance < 70 {
+			quick_spin(
+				fmt.Sprintf("Checking %17s:", server),
+				color.GreenString("Online"),
+			)
+			online++
+		} else if chance >= 70 && chance < 85 {
+			quick_spin(
+				fmt.Sprintf("Checking %17s:", server),
+				color.YellowString("Degraded"),
+			)
+			degraded++
+		} else {
+			quick_spin(
+				fmt.Sprintf("Checking %17s:", server),
+				color.RedString("Offline"),
+			)
+			offline++
+		}
+	}
+
+	fmt.Println()
+	fmt.Printf("%d online, %d degraded, %d offline\n", online, degraded, offline)
 	fmt.Println()
 	fmt.Println("Done")
 	fmt.Println()

@@ -4,6 +4,8 @@ GNDN stands for "Go Nowhere, Do Nothning". The purpose of this tool is precisely
 
 This program will run continously, generating output in the form of progress bars, spinners, bar charts, debuging messages and various other visual elements while doing nothing. It is intended to be used a placeholder or visual representation of work in progress.
 
+![gndn](https://github.com/user-attachments/assets/7b4a271a-7729-4b72-8a8b-c3afb049cdee)
+
 The output is radomized, and unique for every run.
 
 ## Usage

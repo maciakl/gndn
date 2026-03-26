@@ -12,7 +12,7 @@ import (
 "github.com/schollz/progressbar/v3"
 )
 
-const version = "0.1.0"
+const version = "0.1.1"
 
 func main() {
 	err := run()
@@ -64,7 +64,9 @@ func Run() {
 	fmt.Println("--------------------")
 	fmt.Println()
 
-	generate_spinner("Initializing")
+	generate_spinner("Starting up")
+	initialize()
+	update()
 
 	// FIRST
 
@@ -74,6 +76,86 @@ func Run() {
 		generate_random_messages()
 		time.Sleep(2 * time.Second)
 	}
+}
+
+
+func initialize() {
+
+	fmt.Println()
+	fmt.Println("Initializing...")
+	time.Sleep(1 * time.Second)
+	fmt.Println()
+
+	stages := []string{
+		"Loading configuration",
+		"Checking system resources",
+		"Checking dependencies",
+		"Connecting to network",
+		"Connecting to database",
+		"Checking security",
+		"Connecting to cache",
+		"Connecting to message queue",
+		"Connecting to storage",
+		"Checking integrity",
+		"Checking consistency",
+	}
+
+	for _, s := range(stages) {
+
+		txt := s+"..."
+		msg := fmt.Sprintf("%-30s", txt)
+		success := fmt.Sprintf("%-30s %10s", msg, color.GreenString("ok"))
+		spin(msg, success, 11, "cyan", 1)
+	}
+
+	fmt.Println()
+	fmt.Println("Initialization complete")
+	fmt.Println()
+}
+
+func update() {
+
+	fmt.Println()
+	spin("Checking for updates...", "Checking for updates..."+color.CyanString("Done"), 11, "red", 3)
+	fmt.Println()
+
+	num := rand.IntN(25)
+	fmt.Println("Found ", num, "updates")
+	time.Sleep(1 * time.Second)
+	fmt.Println()
+
+	for i := range(num) {
+		n := i + 1
+		txt := fmt.Sprintf("Downloading update %d", n)
+		msg := fmt.Sprintf("%-25s", txt)
+		suc := ""
+
+		dspin(
+			color.CyanString(msg),
+			suc,
+			35,
+			"cyan",
+			1,
+		)
+
+		txt = fmt.Sprintf("Installing update %d", n)
+		msg = fmt.Sprintf("%-25s", txt)
+		txt = fmt.Sprintf("Update %d installed\n", n)
+		suc = fmt.Sprintf("%-25s", txt)
+
+		dspin(
+			color.MagentaString(msg),
+			suc,
+			35,
+			"magenta",
+			1,
+		)	
+	}
+
+	fmt.Println()
+	spin("Finalizing...", "Finalizing..."+color.CyanString("Done"), 11, "red", 3)
+	fmt.Println()
+	
 }
 
 func do_work(message string) {
@@ -377,6 +459,8 @@ func generate_random_info() {
 		4,
 	)
 	fmt.Println()
+
+	initialize()
 }
 
 
@@ -429,6 +513,7 @@ func get_random_filename() string {
 	return get_random_string() + extensions[rand.IntN(len(extensions))]
 
 }
+
 
 func get_random_file_operation() string {
 	
@@ -672,6 +757,18 @@ func get_random_server() string {
 	return name
 }
 
+func get_random_domain() string {
+	domains := []string{
+		"contoso.com",
+		"fabrikam.com",
+		"altostrat.com",
+		"cymbalgroup.com",
+		"gndn.local",
+	}
+	return domains[rand.IntN(len(domains))]
+}
+
+
 func generate_random_error() {
 	err := get_random_error()
 	fmt.Println()
@@ -687,7 +784,7 @@ func generate_random_error() {
 	)
 	spin(
 		color.RedString("Sending notification..."),
-		color.RedString("Notification sent to admin@"+get_random_server()),
+		color.RedString("Notification sent to admin@"+get_random_domain()),
 		9,
 		"red",
 		4,
@@ -702,7 +799,7 @@ func generate_random_warning() {
 	fmt.Print("\a")
 	time.Sleep(1 * time.Second)
 	spin(
-		color.YellowString("Generating error log..."),
+		color.YellowString("Generating log..."),
 		color.YellowString("Log generated in " + get_random_logfile()),
 		11,
 		"yellow",
@@ -742,6 +839,8 @@ func get_random_rare_message_generator() func() {
 		generate_network_diagnostics,
 		generate_batch_report,
 		generate_file_downloader,
+		initialize,
+		update,
 	}
 	return generators[rand.IntN(len(generators))]
 }
@@ -793,6 +892,16 @@ func spin(message string, result string, charset int, color string, duration int
 	s := spinner.New(spinner.CharSets[charset], 100*time.Millisecond) 
 	s.Prefix = message + " "
 	s.FinalMSG = result + "\n"
+	s.Start()
+	s.Color(color)
+	time.Sleep(time.Duration(duration) * time.Second)
+	s.Stop()
+}
+
+func dspin(message string, result string, charset int, color string, duration int) {
+	s := spinner.New(spinner.CharSets[charset], 100*time.Millisecond)
+	s.Prefix = message
+	s.FinalMSG = result
 	s.Start()
 	s.Color(color)
 	time.Sleep(time.Duration(duration) * time.Second)

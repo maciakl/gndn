@@ -96,8 +96,6 @@ func initialize() {
 		"Connecting to cache",
 		"Connecting to message queue",
 		"Connecting to storage",
-		"Checking integrity",
-		"Checking consistency",
 	}
 
 	for _, s := range(stages) {
@@ -125,9 +123,12 @@ func update() {
 	fmt.Println()
 
 	for i := range(num) {
+
+		name := "KB" + get_random_number() + get_random_number() + get_random_number()
+
 		n := i + 1
-		txt := fmt.Sprintf("Downloading update %d", n)
-		msg := fmt.Sprintf("%-25s", txt)
+		txt := fmt.Sprintf("Downloading update %02d/%02d (%s)", n, num, name)
+		msg := fmt.Sprintf("%-40s", txt)
 		suc := ""
 
 		dspin(
@@ -138,10 +139,10 @@ func update() {
 			1,
 		)
 
-		txt = fmt.Sprintf("Installing update %d", n)
-		msg = fmt.Sprintf("%-25s", txt)
-		txt = fmt.Sprintf("Update %d installed\n", n)
-		suc = fmt.Sprintf("%-25s", txt)
+		txt = fmt.Sprintf("Installing update %02d/%02d (%s)", n, num, name)
+		msg = fmt.Sprintf("%-40s", txt)
+		txt = fmt.Sprintf("Update %02d/%02d (%s) installed\n", n, num, name)
+		suc = fmt.Sprintf("%-40s", txt)
 
 		dspin(
 			color.MagentaString(msg),
@@ -184,6 +185,8 @@ func get_random_verb() string {
 		"Loading", 
 		"Analyzing",
 		"Updating",
+		"Configuring",
+		"Extracting",
 		"Reticulating",
 		"Simulating",
 		"Optimizing",
@@ -210,9 +213,7 @@ func get_random_noun() string {
 	nouns := []string{
 		"data",
 		"files",
-		"images",
 		"logs",
-		"documents",
 		"records",
 		"entries",
 		"objects",
@@ -247,9 +248,9 @@ func get_random_status() string {
 		color.GreenString("Good"),
 		color.GreenString("Finished"),
 		color.GreenString("Completed"),
-		color.GreenString("Verified"),
 		color.YellowString("Halted"),
 		color.YellowString("Stopped"),
+		color.YellowString("Paused"),
 		color.RedString("Failed"),
 		color.RedString("Error"),
 		color.CyanString("Waiting"),

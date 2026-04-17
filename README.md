@@ -19,11 +19,11 @@ Options:
 
 ## Installation
 
-### Milti-Platform:
+### Multi-Platform:
 
 You can install gndn using `go install`:
 
-```bashbash
+```bash
 go install github.com/maciakl/gndn@latest
 ```
 
